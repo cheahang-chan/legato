@@ -1,0 +1,52 @@
+{
+    "chaos slime": {
+        "name": "Chaos Slime",
+        "image": "https://i.imgur.com/zsqEjF7l.png",
+        "color": "#C0C0C0"
+    },
+    "hard lotus": {
+        "name": "Hard Lotus",
+        "image": "https://i.imgur.com/LBH7p0d.png",
+        "color": "#C0C0C0"
+    },
+    "hard damien": {
+        "name": "Hard Damien",
+        "image": "https://i.imgur.com/b2rL91U.png",
+        "color": "#640E27"
+    },
+    "hard lucid": {
+        "name": "Hard Lucid",
+        "image": "https://i.imgur.com/1tFUO5j.png",
+        "color": "#C8A2C8"
+    },
+    "hard will": {
+        "name": "Hard Will",
+        "image": "https://i.imgur.com/Z9ogyyw.png",
+        "color": "#990000"
+    },
+    "chaos dusk": {
+        "name": "Chaos Dusk",
+        "image": "https://i.imgur.com/YHyzu7m.png",
+        "color": "#330066"
+    },
+    "hard heretic hilla": {
+        "name": "Hard Heretic Hilla",
+        "image": "https://i.imgur.com/eE5FW3w.png",
+        "color": "#AAFF00"
+    },
+    "hard djunkel": {
+        "name": "Hard Djkunkel",
+        "image": "https://i.imgur.com/RCzfvNZ.png",
+        "color": "#2c282c"
+    },
+    "black mage": {
+        "name": "Black Mage",
+        "image": "https://i.imgur.com/8wujVPw.png",
+        "color": "#1F0000"
+    },
+    "chosen serene": {
+        "name": "Chosen Serene",
+        "image": "https://i.imgur.com/ljs6LWL.png",
+        "color": "#FFFAA0"
+    }
+}

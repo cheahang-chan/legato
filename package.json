@@ -1,0 +1,30 @@
+{
+  "name": "legato",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/bot.js",
+  "scripts": {
+    "start": "node ./src/bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheahang-chan/legato.git"
+  },
+  "author": "cheahang-chan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cheahang-chan/legato/issues"
+  },
+  "homepage": "https://github.com/cheahang-chan/legato#readme",
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.0.7",
+    "mongoose-autopopulate": "^0.16.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
+}
