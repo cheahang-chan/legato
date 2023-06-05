@@ -5,6 +5,7 @@ on:
       - master
 jobs:
   setEnv:
+    runs-on: ubuntu-latest
     name: Fly.io Environment
     steps:
       - run: flyctl secrets set DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} MONGO_URI=${{ secrets.MONGO_URI }}
