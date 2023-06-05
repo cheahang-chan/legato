@@ -4,12 +4,17 @@ on:
     branches:
       - master
 jobs:
+  setEnv:
+    name: Fly.io Environment
+    steps:
+      - run: flyctl secrets set DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} MONGO_URI=${{ secrets.MONGO_URI }}
   deploy:
+    needs: setEnv
     name: Fly.io Deployment (Prod)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --build-secret DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }} --build-secret MONGO_URI=${{ secrets.MONGO_URI }}
+      - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

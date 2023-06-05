@@ -14,8 +14,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 RUN --mount=type=secret,id=DISCORD_BOT_TOKEN \
-    DISCORD_BOT_TOKEN="$(cat /run/secrets/DISCORD_BOT_TOKEN)" \
-
+    DISCORD_BOT_TOKEN="$(cat /run/secrets/DISCORD_BOT_TOKEN)"
+    
 RUN --mount=type=secret,id=MONGO_URI \
     MONGO_URI="$(cat /run/secrets/MONGO_URI)" \ 
 
