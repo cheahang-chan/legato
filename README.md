@@ -1,10 +1,43 @@
-[![Deployment Status](https://github.com/cheahang-chan/legato/actions/workflows/fly.yml/badge.svg)](https://github.com/cheahang-chan/legato/actions/workflows/fly.yml)
+# Legato &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/main/LICENSE) [![Deployment Status](https://github.com/cheahang-chan/legato/actions/workflows/fly.yml/badge.svg)](https://github.com/cheahang-chan/legato/actions/workflows/fly.yml) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
+A Discord bot to manage party and boss drops from Maplestory.
 
 Created a new repository since the original repo is unaccessible.  
 Forked from the Original Repository at `iRiceCrispy/Spooder`
 
-## Legato
-A Discord bot to manage party and boss drops from Maplestory.
+### Requirements:
+1. Register for a [MongoDB Atlas Account](https://www.mongodb.com/cloud/atlas/register)
+2. Follow official instructions to spin up a free MongoDB Instance [here](https://www.mongodb.com/basics/mongodb-atlas-tutorial)
+3. Register for a [Discord Bot]()
+4. Configure the Bot settings to enable `Privileged Gateway Intents`
+5. Generate an OAuth2 URL with `Bot` option enabled
+6. Install package dependencies using `npm install`
+
+### Local Installation:
+Simply configure `.env` using the `.env.sample` file and run
+```
+npm start
+```
+
+### Deployment:
+Deployment uses a free cloud hosting provider [Fly.io](https://fly.io). Simply register the app and follow default setup instructions.
+```
+flyctl auth login
+flyctl launch
+flyctl deploy
+```
+To suspend/start the containers:
+```
+flyctl scale count <0/1>
+```
+### Deployment Pipeline using GitHub Actions on [Fly.io](https://fly.io):
+1. Create an auth token using `flyctl tokens create <name>`
+2. Create new repository secret `FLY_API_TOKEN` in GitHub Action Secrets
+3. Create new secrets in Fly.io for `DISCORD_BOT_TOKEN` and `MONGO_URI`
+```
+flyctl secrets set DISCORD_BOT_TOKEN=<token>
+flyctl secrets set MONGO_URI=<connectionString>
+```
+4. Commit changes or manually start GitHub Actions for deployment
 
 ### Guide:
 ```
@@ -32,35 +65,6 @@ Drop Management:
 /drops list
 /drops all
 ```
-
-### Requirements:
-1. Register for a [MongoDB Atlas Account](https://www.mongodb.com/cloud/atlas/register)
-2. Follow official instructions to spin up a free MongoDB Instance [here](https://www.mongodb.com/basics/mongodb-atlas-tutorial)
-3. Register for a [Discord Bot]()
-4. Configure the Bot settings to enable `Privileged Gateway Intents`
-5. Generate an OAuth2 URL with `Bot` option enabled
-6. Install package dependencies using `npm install`
-
-### Local Setup:
-Simply configure `.env` using the `.env.sample` file and run
-```
-npm start
-```
-
-### Deployment:
-Deployment uses a free cloud hosting provider [Fly.io](https://fly.io). Simply register the app and follow default setup instructions.
-```
-flyctl auth login
-flyctl launch
-flyctl deploy
-```
-To suspend/start the containers:
-```
-flyctl scale count <0/1>
-```
-
-### Deployment Pipeline:
-WIP
 
 ### Known Issues:
 1. First item in each server needs to be generated manually in MongoDB, otherwise `/setdrop` command will fail.

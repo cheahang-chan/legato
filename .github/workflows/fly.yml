@@ -1,11 +1,11 @@
-name: Fly.io Deployment (Prod)
+name: Production Deployment
 on:
   push:
     branches:
       - master
 jobs:
   deploy:
-    name: Fly.io Deployment (Prod)
+    name: Production Deployment
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
