@@ -10,4 +10,6 @@ client.commandData = [];
 eventHandler(client);
 commandHandler(client);
 
+console.log("Environments Loaded.. " + JSON.stringify(process.env))
+console.log("Connecting to Discord.. Token: " + process.env.DISCORD_BOT_TOKEN)
 client.login(process.env.DISCORD_BOT_TOKEN);
