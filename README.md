@@ -1,4 +1,6 @@
-Created a new repository since the original repo is unaccessible.
+[![Deployment Status](https://github.com/cheahang-chan/legato/actions/workflows/fly.yml/badge.svg)](https://github.com/cheahang-chan/legato/actions/workflows/fly.yml)
+
+Created a new repository since the original repo is unaccessible.  
 Forked from the Original Repository at `iRiceCrispy/Spooder`
 
 ## Legato
