@@ -13,12 +13,6 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV=production
 
-RUN --mount=type=secret,id=DISCORD_BOT_TOKEN \
-    DISCORD_BOT_TOKEN="$(cat /run/secrets/DISCORD_BOT_TOKEN)"
-    
-RUN --mount=type=secret,id=MONGO_URI \
-    MONGO_URI="$(cat /run/secrets/MONGO_URI)" \ 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
