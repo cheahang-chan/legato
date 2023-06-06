@@ -2,12 +2,12 @@
 A Discord bot to manage party and boss drops from Maplestory.
 
 Created a new repository since the original repo is unaccessible.  
-Forked from the Original Repository at `iRiceCrispy/Spooder`
+Forked from the original repository at `iRiceCrispy/Spooder`
 
 ### Requirements:
 1. Register for a [MongoDB Atlas Account](https://www.mongodb.com/cloud/atlas/register)
 2. Follow official instructions to spin up a free MongoDB Instance [here](https://www.mongodb.com/basics/mongodb-atlas-tutorial)
-3. Register for a [Discord Bot]()
+3. Register for a [Discord Bot](https://discord.com/developers/applications)
 4. Configure the Bot settings to enable `Privileged Gateway Intents`
 5. Generate an OAuth2 URL with `Bot` option enabled
 6. Install package dependencies using `npm install`
@@ -19,7 +19,7 @@ npm start
 ```
 
 ### Deployment:
-Deployment uses a free cloud hosting provider [Fly.io](https://fly.io). Simply register the app and follow default setup instructions.
+Deployment uses a free cloud hosting provider [Fly.io](https://fly.io). Simply register the app and follow [default setup instructions](https://fly.io/docs/hands-on/install-flyctl/) for your OS.
 ```
 flyctl auth login
 flyctl launch
@@ -30,14 +30,15 @@ To suspend/start the containers:
 flyctl scale count <0/1>
 ```
 ### Deployment Pipeline using GitHub Actions on [Fly.io](https://fly.io):
-1. Create an auth token using `flyctl tokens create <name>`
-2. Create new repository secret `FLY_API_TOKEN` in GitHub Action Secrets
-3. Create new secrets in Fly.io for `DISCORD_BOT_TOKEN` and `MONGO_URI`
+1. Fork the GitHub repository
+2. Create an auth token using `flyctl tokens create <name>`
+3. Create a new repository secret `FLY_API_TOKEN` in GitHub Action Secrets
+4. Create new secrets in Fly.io for `DISCORD_BOT_TOKEN` and `MONGO_URI` using:
 ```
 flyctl secrets set DISCORD_BOT_TOKEN=<token>
 flyctl secrets set MONGO_URI=<connectionString>
 ```
-4. Commit changes or manually start GitHub Actions for deployment
+5. Commit changes or manually start GitHub Actions for deployment
 
 ### Guide:
 ```
@@ -47,6 +48,7 @@ flyctl secrets set MONGO_URI=<connectionString>
 4. Use the sold command to mark a drop as sold.
 5. Use the paid command to mark a user as paid for their split.
 6. Use the paycheck/paychecks command to view peoples paychecks.
+7. Use the drop command to view current/all drops in the server.
 Each command should be pretty self explanatory.
 ```
 
