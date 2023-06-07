@@ -1,5 +1,6 @@
 module.exports = (mongoose) => {
     const dropSchema = new mongoose.Schema({
+        sellerId: String,
         guildId: String,
         number: Number,
         dropMessageId: String,
