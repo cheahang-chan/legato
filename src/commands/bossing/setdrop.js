@@ -134,7 +134,7 @@ module.exports = {
     },
     permissions: [Permissions.FLAGS.SEND_MESSAGES],
     async execute(interaction) {
-        const { guild, options, channel } = interaction;
+        const { guild, options, channel, user } = interaction;
         const Guild = await db.Guild.findOne({ id: guild.id });
 
         if (!Guild.dropsChannelId) return await interaction.reply({ embeds: [{ description: 'This server does not have a `drops` channel yet. Please use the `setchannel` command to set it up.', color: 'YELLOW' }] });
@@ -220,6 +220,7 @@ module.exports = {
                 buttonCollector.stop();
 
                 const drop = {
+                    sellerId: user.id,
                     guildId: guild.id,
                     number: newDropId,
                     dropMessageId: '',
@@ -231,6 +232,7 @@ module.exports = {
                     price: 0,
                     sold: false,
                 };
+
                 const Members = []; // Stores database Members.
                 const Drop = await db.Drop.create(drop);
                 await Guild.updateOne({ $inc: { dropCounter: 1 }, $push: { drops: Drop } });

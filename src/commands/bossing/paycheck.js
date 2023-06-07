@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const db = require('../../util/database/index.js');
-const { meso } = require('../../util/emoji.json');
 const { Permissions } = require('discord.js');
+const { getDropString } = require('../../util/common.js');
 
 module.exports = {
     data: {
@@ -29,7 +29,7 @@ module.exports = {
             const drops = [];
 
             Member.paychecks.forEach(drop => {
-                drops.push(`Drop \`#${drop.number}\`: ${drop.split.toLocaleString()} mesos`);
+                drops.push(getDropString(Guild.id, Guild.salesMessageId, drop));
             });
 
             const embed = new MessageEmbed()
@@ -48,7 +48,7 @@ module.exports = {
             const drops = [];
 
             Member.paychecks.forEach(drop => {
-                drops.push(`[#${drop.number} - ${drop.item} (${drop.boss})](https://discord.com/channels/${Guild.id}/${Guild.salesChannelId}/${drop.saleMessageId}): ${drop.split.toLocaleString()} mesos`);
+                drops.push(getDropString(Guild.id, Guild.salesMessageId, drop));
             });
 
             const embed = new MessageEmbed()

@@ -1,7 +1,7 @@
 const { Collection, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const db = require('../../util/database/index.js');
-const { meso } = require('../../util/emoji.json');
 const { Permissions } = require('discord.js');
+const { getDropString } = require('../../util/common.js');
 
 module.exports = {
     data: {
@@ -22,7 +22,7 @@ module.exports = {
         let total = 0;
 
         for (const Member of Members) {
-            members.set(Member.userId, { id: Member.userId, payments: `Drops: ${Member.paychecks.map(paycheck => `[#${paycheck.number} - ${paycheck.item} (${paycheck.boss})](https://discord.com/channels/${Guild.id}/${Guild.salesChannelId}/${paycheck.saleMessageId})`).join(', ')}`, total: `Total: ${Member.payment.toLocaleString()} mesos` });
+            members.set(Member.userId, { id: Member.userId, payments: Member.paychecks.map(paycheck => getDropString(Guild.id, Guild.salesChannelId, paycheck)).join('\n'), total: `Total: ${Member.payment.toLocaleString()} mesos` });
             total += Member.payment;
         }
 
