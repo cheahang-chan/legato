@@ -1,6 +1,7 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const db = require('../../util/database/index.js');
 const { Permissions } = require('discord.js');
+const { getDropString } = require('../../util/common.js');
 
 const MAX_COUNT = 5;
 
@@ -40,9 +41,7 @@ module.exports = {
 
         Drops.forEach(drop => {
             const members = drop.party.sort((first, second) => first.id - second.id).map(member => `<@${member.userId}>`);
-            const dropMessageUrl = `https://discord.com/channels/${Guild.id}/${Guild.dropsChannelId}/${drop.dropMessageId}`;
-            const salesMessageUrl = `https://discord.com/channels/${Guild.id}/${Guild.salesChannelId}/${drop.saleMessageId}`;
-            dropsArray.push(`**Drop ID:** ${drop.number}\n**Boss:** ${drop.boss}\n**Item:** ${drop.item}\n**Status:** ${drop.saleMessageId ? `[Sold](${salesMessageUrl})` : `[Unsold](${dropMessageUrl})`}\n\n**Members:**\n${members.join(', ')}\n\n\n`);
+            dropsArray.push(`${getDropString(Guild.id, drop.saleMessageId ? Guild.salesChannelId : Guild.dropsChannelId, drop)}**Status:** ${drop.saleMessageId ? `Sold` : `Unsold`}\n\n**Members (${drop.partySize}):**\n${members.join(', ')}\n\n\n`);
         });
 
         let description = "";
