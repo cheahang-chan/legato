@@ -9,8 +9,8 @@ const BOSS_CHOICES = [{
     name: 'Black Mage',
     value: 'black mage',
 }, {
-    name: 'Hard Djkunkel',
-    value: 'hard djkunkel',
+    name: 'Hard Djunkel',
+    value: 'hard djunkel',
 }, {
     name: 'Hard Heretic Hilla',
     value: 'hard heretic hilla',
