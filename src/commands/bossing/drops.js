@@ -75,7 +75,7 @@ module.exports = {
 
             const collector = reply.createMessageComponentCollector({ filter, componentType: 'BUTTON', idle: 15000, dispose: true });
             collector.on('collect', async i => {
-                if (i.customId === 'next' && (page + 1 * MAX_COUNT) < dropCount) {
+                if (i.customId === 'next' && (page + 1 <= maxPages)) { // 10 < 6
                     page++;
                     index = (page - 1) * MAX_COUNT;
                 }
