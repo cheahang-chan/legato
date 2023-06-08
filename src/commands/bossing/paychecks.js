@@ -22,7 +22,7 @@ module.exports = {
         let total = 0;
 
         for (const Member of Members) {
-            members.set(Member.userId, { id: Member.userId, payments: Member.paychecks.map(paycheck => getDropString(Guild.id, Guild.salesChannelId, paycheck)).join('\n'), total: `Total: ${Member.payment.toLocaleString()} mesos` });
+            members.set(Member.userId, { id: Member.userId, payments: Member.paychecks.map(paycheck => getDropString(Guild, paycheck)).join('\n'), total: `Total: ${Member.payment.toLocaleString()} mesos` });
             total += Member.payment;
         }
 
