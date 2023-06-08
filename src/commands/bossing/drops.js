@@ -57,7 +57,7 @@ module.exports = {
 
             Drops.forEach(drop => {
                 const members = drop.party.sort((first, second) => first.id - second.id).map(member => `<@${member.userId}>`);
-                dropsArray.push(`${getDropString(Guild.id, drop.saleMessageId ? Guild.salesChannelId : Guild.dropsChannelId, drop)}**Status:** ${drop.saleMessageId ? `Sold` : `Unsold`}\n\n**Members (${drop.partySize}):**\n${members.join(', ')}\n\n\n`);
+                dropsArray.push(`${getDropString(Guild, drop)}**Status:** ${drop.saleMessageId ? `Sold` : `Unsold`}\n\n**Members (${drop.partySize}):**\n${members.join(', ')}\n\n\n`);
             });
 
             let description = "";
