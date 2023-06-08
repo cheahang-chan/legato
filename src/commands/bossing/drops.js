@@ -28,9 +28,9 @@ module.exports = {
 
         let Drops = null;
         if (subcommand === 'list') {
-            Drops = await db.Drop.find({ guildId: guild.id, saleMessageId: { $eq: "" } });
+            Drops = await db.Drop.find({ guildId: guild.id, saleMessageId: { $eq: "" } }).sort({ number: -1 });
         } else if (subcommand === 'all') {
-            Drops = await db.Drop.find({ guildId: guild.id });
+            Drops = await db.Drop.find({ guildId: guild.id }).sort({ number: -1 });
         }
 
         const dropsArray = [];
