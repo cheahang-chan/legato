@@ -49,6 +49,7 @@ flyctl secrets set MONGO_URI=<connectionString>
 5. Use the paid command to mark a user as paid for their split.
 6. Use the paycheck/paychecks command to view peoples paychecks.
 7. Use the drop command to view current/all drops in the server.
+8. Use the owe list command to view how much you/user owes everyone.
 Each command should be pretty self explanatory.
 ```
 
@@ -64,8 +65,13 @@ Party Management:
 Drop Management:
 /setdrop party <bossName> <itemName> <partyName> 
 /setdrop manual <bossName> <itemName> <randoms> <members>
-/drops list
-/drops all
+
+Paycheck Management:
+/paychecks
+/paycheck list
+/paycheck from <member>
+/paycheck user <member>
+/owe list <user?>
 ```
 
 ### Known Issues:
