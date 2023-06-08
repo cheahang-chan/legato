@@ -28,9 +28,9 @@ module.exports = {
 
         let Drops = null;
         if (subcommand === 'list') {
-            Drops = await db.Drop.find({ guildId: guild.id, saleMessageId: { $eq: "" } });
+            Drops = await db.Drop.find({ guildId: guild.id, saleMessageId: { $eq: "" } }).sort({ number: -1 });
         } else if (subcommand === 'all') {
-            Drops = await db.Drop.find({ guildId: guild.id });
+            Drops = await db.Drop.find({ guildId: guild.id }).sort({ number: -1 });
         }
 
         const dropsArray = [];
@@ -75,7 +75,7 @@ module.exports = {
 
             const collector = reply.createMessageComponentCollector({ filter, componentType: 'BUTTON', idle: 15000, dispose: true });
             collector.on('collect', async i => {
-                if (i.customId === 'next' && (page + 1 * MAX_COUNT) < dropCount) {
+                if (i.customId === 'next' && (page + 1 <= maxPages)) { // 10 < 6
                     page++;
                     index = (page - 1) * MAX_COUNT;
                 }
