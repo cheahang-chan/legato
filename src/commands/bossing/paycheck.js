@@ -51,11 +51,11 @@ module.exports = {
                 .addComponents([
                     new MessageButton()
                         .setCustomId('previous')
-                        .setEmoji('??')
+                        .setEmoji('⬅️')
                         .setStyle('SECONDARY'),
                     new MessageButton()
                         .setCustomId('next')
-                        .setEmoji('??')
+                        .setEmoji('➡️')
                         .setStyle('SECONDARY'),
                 ]);
 

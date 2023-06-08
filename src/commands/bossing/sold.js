@@ -89,7 +89,8 @@ module.exports = {
 
                 Drop.party.forEach(async member => {
                     partyMembers.push(`<@!${member.userId}>`);
-                    await member.updateOne({ $push: { paychecks: Drop } });
+                    if (Drop.sellerId !== member.userId) // paycheck not required for seller
+                        await member.updateOne({ $push: { paychecks: Drop } });
                 });
 
                 const image = await interaction.fetchReply().then(reply => {
@@ -107,6 +108,7 @@ module.exports = {
                 await dropMsg.react('💰');
 
                 await Drop.updateOne({ saleMessageId: saleMessage.id, price, sold: true });
+
                 return await interaction.editReply({ embeds: [saleEmbed, { description: `[Drop #${Drop.number}](${dropMsg.url} 'View Drop') has been sucessfully marked as [sold](${saleMessage.url} 'View Sales Receipt').`, color: 'GREEN' }], components: [] });
             }
             else if (button === 'image') {
