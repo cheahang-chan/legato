@@ -117,19 +117,8 @@ module.exports = {
 
             return await interaction.reply({ embeds: [{ description: `Successfully marked Drop \`#${dropNumber}\` as paid for ${user}.`, color: 'GREEN' }] });
         }
-        else if (subcommand === 'multiple') {
-            const dropNumbers = [
-                options.getInteger('drop-1'),
-                options.getInteger('drop-2'),
-                options.getInteger('drop-3'),
-                options.getInteger('drop-4'),
-                options.getInteger('drop-5'),
-                options.getInteger('drop-6'),
-                options.getInteger('drop-7'),
-                options.getInteger('drop-8'),
-                options.getInteger('drop-9'),
-                options.getInteger('drop-10'),
-            ].filter(Boolean).sort((a, b) => a - b);
+        else if (subcommand === 'multiple' || subcommand === 'all') {
+            let dropNumbers = [];
             const Drops = [];
             const dne = [];
             const excluded = [];
@@ -137,6 +126,23 @@ module.exports = {
             const paid = [];
             const drops = [];
             const text = [];
+
+            if (subcommand === 'multiple') {
+                dropNumbers = [
+                    options.getInteger('drop-1'),
+                    options.getInteger('drop-2'),
+                    options.getInteger('drop-3'),
+                    options.getInteger('drop-4'),
+                    options.getInteger('drop-5'),
+                    options.getInteger('drop-6'),
+                    options.getInteger('drop-7'),
+                    options.getInteger('drop-8'),
+                    options.getInteger('drop-9'),
+                    options.getInteger('drop-10'),
+                ].filter(Boolean).sort((a, b) => a - b);
+            } else {
+                dropNumbers = (await db.Drop.find({ guildId: guild.id, sellerId: interaction.user.id, sold: true })).map(drop => drop.number);
+            }
 
             for (const number of dropNumbers) {
                 const Drop = await db.Drop.findOne({ guildId: guild.id, number });
@@ -152,7 +158,6 @@ module.exports = {
                 else if (!Drop.sold) unsold.push(`\`#${Drop.number}\``);
                 else if (!Member.verifyPaycheck(Drop)) paid.push(`\`#${Drop.number}\``);
                 else drops.push(Drop.id);
-
             }
 
             if (excluded.length) text.push(`${user} was not part of Drop(s) ${excluded.join(', ')}'s split(s).`);
@@ -163,12 +168,6 @@ module.exports = {
             await Member.updateOne({ $pull: { paychecks: { $in: drops } } });
 
             return await interaction.reply({ embeds: [{ description: `Successfully marked Drop(s) ${dropNumbers.map(number => `\`#${number}\``).join(', ')} as paid for ${user}.`, color: 'GREEN' }] });
-        }
-        else {
-            const drops = Member.paychecks.map(drop => `\`#${drop.number}\``);
-            await Member.updateOne({ $set: { paychecks: [] } });
-
-            return await interaction.reply({ embeds: [{ description: `Successfully marked Drops ${drops.join(', ')} as paid for ${user}.`, color: 'GREEN' }] });
         }
     },
 };
