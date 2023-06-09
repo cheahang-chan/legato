@@ -146,12 +146,15 @@ module.exports = {
 
             for (const number of dropNumbers) {
                 const Drop = await db.Drop.findOne({ guildId: guild.id, number });
-
-                if (Drop && Member.verifyDrop(Drop)) Drops.push(Drop);
-                else dne.push(`\`#${number}\``);
+                if (Drop) {
+                    if (subcommand === 'all') {
+                        if (Member.verifyDrop(Drop)) Drops.push(Drop)
+                    } else Drops.push(Drop);
+                } else dne.push(`\`#${number}\``);
             }
 
-            if (dne.length) return await interaction.reply({ embeds: [{ description: `Drop(s): ${dne.join(', ')} does not exist.`, color: 'RED' }] });
+            if (subcommand === 'multiple' && dne.length) return await interaction.reply({ embeds: [{ description: `Drop(s): ${dne.join(', ')} does not exist.`, color: 'RED' }] });
+            if (Drops.length === 0) return await interaction.reply({ embeds: [{ description: `There are no paychecks for ${Member.name} available for you to clear.`, color: 'RED' }] });
 
             for (const Drop of Drops) {
                 if (!Member.verifyDrop(Drop)) excluded.push(`\`#${Drop.number}\``);
@@ -167,7 +170,7 @@ module.exports = {
 
             await Member.updateOne({ $pull: { paychecks: { $in: drops } } });
 
-            return await interaction.reply({ embeds: [{ description: `Successfully marked Drop(s) ${dropNumbers.map(number => `\`#${number}\``).join(', ')} as paid for ${user}.`, color: 'GREEN' }] });
+            return await interaction.reply({ embeds: [{ description: `Successfully marked Drop(s) ${Drops.map(drop => `\`#${drop.number}\``).join(', ')} as paid for ${user}.`, color: 'GREEN' }] });
         }
     },
 };
