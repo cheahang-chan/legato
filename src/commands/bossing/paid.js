@@ -148,7 +148,7 @@ module.exports = {
                 const Drop = await db.Drop.findOne({ guildId: guild.id, number });
                 if (Drop) {
                     if (subcommand === 'all') {
-                        if (Member.verifyDrop(Drop)) Drops.push(Drop)
+                        if (Member.verifyDrop(Drop) && Member.verifyPaycheck(Drop)) Drops.push(Drop)
                     } else Drops.push(Drop);
                 } else dne.push(`\`#${number}\``);
             }
