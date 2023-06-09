@@ -147,7 +147,7 @@ module.exports = {
             for (const number of dropNumbers) {
                 const Drop = await db.Drop.findOne({ guildId: guild.id, number });
 
-                if (Drop) Drops.push(Drop);
+                if (Drop && Member.verifyDrop(Drop)) Drops.push(Drop);
                 else dne.push(`\`#${number}\``);
             }
 
