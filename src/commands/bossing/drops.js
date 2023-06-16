@@ -44,9 +44,9 @@ module.exports = {
 
         if (subcommand === 'all' || subcommand === 'list') {
             if (subcommand === 'list') {
-                Drops = await db.Drop.find({ guildId: guild.id, saleMessageId: { $eq: "" } });
+                Drops = await db.Drop.find({ guildId: guild.id, saleMessageId: { $eq: "" } }).sort({ number: -1 });;
             } else if (subcommand === 'all') {
-                Drops = await db.Drop.find({ guildId: guild.id });
+                Drops = await db.Drop.find({ guildId: guild.id }).sort({ number: -1 });;
             }
 
             const dropsArray = [];
@@ -91,7 +91,7 @@ module.exports = {
 
                 const collector = reply.createMessageComponentCollector({ filter, componentType: 'BUTTON', idle: 15000, dispose: true });
                 collector.on('collect', async i => {
-                    if (i.customId === 'next' && (page + 1 * MAX_COUNT) < dropCount) {
+                    if (i.customId === 'next' && (page + 1 <= maxPages)) {
                         page++;
                         index = (page - 1) * MAX_COUNT;
                     }
@@ -123,10 +123,10 @@ module.exports = {
             const members = [];
             const dropId = interaction.options.getString('drop');
             Drops = await db.Drop.findOne({ guildId: guild.id, number: dropId });
-            if (!Drops) 
+            if (!Drops)
                 return await interaction.reply({ embeds: [{ description: `Drop #${dropId} doesn't exist in the database.`, color: 'RED' }] });
-            
-            if (Member.userId !== Drops.sellerId) 
+
+            if (Member.userId !== Drops.sellerId)
                 return await interaction.reply({ embeds: [{ description: `Drop #${dropId} (${Drops.item}) doesn't belong to you.`, color: 'RED' }] });
 
             for (let i = 0; i < Drops.party.length; i++) {
