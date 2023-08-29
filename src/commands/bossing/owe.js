@@ -55,7 +55,7 @@ module.exports = {
                     const drops = [];
                     if (drop.sellerId === Member.userId) {
                         memberTotalPayment += drop.split;
-                        drops.push(getDropString(Guild, drop))
+                        drops.push(getDropString(Guild, drop, false))
                     }
                     return drops;
                 });
@@ -129,7 +129,7 @@ module.exports = {
 
                     const embed = new MessageEmbed()
                         .setColor('GREEN')
-                        .setAuthor(`${user.username}'s Paycheck`, user.displayAvatarURL({ dynamic: true, format: 'png', size: 2048 }))
+                        .setAuthor(`${user.username}'s Owe List`, user.displayAvatarURL({ dynamic: true, format: 'png', size: 2048 }))
                         .setDescription(description.join('\n\n') + `\n\n\n__Grand Total__: ${total.toLocaleString()} mesos`)
                         .setFooter(`Page: ${page}/${maxPages}`);
 
@@ -151,7 +151,7 @@ module.exports = {
                 const drops = [];
                 if (drop.sellerId === currentUser.id) {
                     total += drop.split;
-                    drops.push(getDropString(Guild, drop))
+                    drops.push(getDropString(Guild, drop, false))
                 }
                 return drops;
             });
