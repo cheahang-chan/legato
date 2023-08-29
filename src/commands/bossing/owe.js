@@ -43,7 +43,7 @@ module.exports = {
             const Members = await db.Member.find({ guildId: guild.id, paychecks: { $ne: [] } });
             const members = new Collection();
             const description = [];
-            const multiplier = 3;
+            const multiplier = 1;
             let page = 1;
             let total = 0;
 
