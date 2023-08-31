@@ -101,21 +101,23 @@ module.exports = {
 
         if (!Member) return await interaction.reply({ embeds: [{ description: `${user} have not participated in a boss from this server yet.`, color: 'RED' }] });
 
+        await interaction.deferReply({ ephemeral: true });
+
         if (subcommand === 'single') {
             const dropNumber = options.getInteger('drop');
             const Drop = await db.Drop.findOne({ guildId: guild.id, number: dropNumber });
 
-            if (!Drop) return await interaction.reply({ embeds: [{ description: `Drop \`#${dropNumber}\` does not exist.`, color: 'RED' }] });
+            if (!Drop) return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `Drop \`#${dropNumber}\` does not exist.`, color: 'RED' }] });
 
-            if (!Member.verifyDrop(Drop)) return await interaction.reply({ embeds: [{ description: `${user} was not part of Drop \`#${dropNumber}\`'s split.`, color: 'RED' }] });
+            if (!Member.verifyDrop(Drop)) return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `${user} was not part of Drop \`#${dropNumber}\`'s split.`, color: 'RED' }] });
 
-            if (!Drop.sold) return await interaction.reply({ embeds: [{ description: `Drop \`#${dropNumber}\` has not been sold yet.`, color: 'RED' }] });
+            if (!Drop.sold) return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `Drop \`#${dropNumber}\` has not been sold yet.`, color: 'RED' }] });
 
-            if (!Member.verifyPaycheck(Drop)) return await interaction.reply({ embeds: [{ description: `${user} has already been paid for Drop \`#${dropNumber}\`.`, color: 'RED' }] });
+            if (!Member.verifyPaycheck(Drop)) return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `${user} has already been paid for Drop \`#${dropNumber}\`.`, color: 'RED' }] });
 
             await Member.updateOne({ $pull: { paychecks: Drop.id } });
 
-            return await interaction.reply({ embeds: [{ description: `Successfully marked Drop \`#${dropNumber}\` as paid for ${user}.`, color: 'GREEN' }] });
+            return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `Successfully marked Drop \`#${dropNumber}\` as paid for ${user}.`, color: 'GREEN' }] });
         }
         else if (subcommand === 'multiple' || subcommand === 'all') {
             let dropNumbers = [];
@@ -153,8 +155,8 @@ module.exports = {
                 } else dne.push(`\`#${number}\``);
             }
 
-            if (subcommand === 'multiple' && dne.length) return await interaction.reply({ embeds: [{ description: `Drop(s): ${dne.join(', ')} does not exist.`, color: 'RED' }] });
-            if (Drops.length === 0) return await interaction.reply({ embeds: [{ description: `There are no paychecks for ${Member.name} available for you to clear.`, color: 'RED' }] });
+            if (subcommand === 'multiple' && dne.length) return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `Drop(s): ${dne.join(', ')} does not exist.`, color: 'RED' }] });
+            if (Drops.length === 0) return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `There are no paychecks for ${Member.name} available for you to clear.`, color: 'RED' }] });
 
             for (const Drop of Drops) {
                 if (!Member.verifyDrop(Drop)) excluded.push(`\`#${Drop.number}\``);
@@ -166,11 +168,11 @@ module.exports = {
             if (excluded.length) text.push(`${user} was not part of Drop(s) ${excluded.join(', ')}'s split(s).`);
             if (unsold.length) text.push(`Drop(s) ${unsold.join(', ')} has not been sold yet.`);
             if (paid.length) text.push(`${user} has already been paid for Drop(s) ${paid.join(', ')}.`);
-            if (text.length) return await interaction.reply({ embeds: [{ description: text.join('\n'), color: 'RED' }] });
+            if (text.length) return await interaction.followUp({ ephemeral: false,  embeds: [{ description: text.join('\n'), color: 'RED' }] });
 
             await Member.updateOne({ $pull: { paychecks: { $in: drops } } });
 
-            return await interaction.reply({ embeds: [{ description: `Successfully marked Drop(s) ${Drops.map(drop => `\`#${drop.number}\``).join(', ')} as paid for ${user}.`, color: 'GREEN' }] });
+            return await interaction.followUp({ ephemeral: false,  embeds: [{ description: `Successfully marked Drop(s) ${Drops.map(drop => `\`#${drop.number}\``).join(', ')} as paid for ${user}.`, color: 'GREEN' }] });
         }
     },
 };
