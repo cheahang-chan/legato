@@ -3,6 +3,12 @@ const db = require('../../util/database/index.js');
 const bossList = require('../../util/bossing/bossList.json');
 
 const BOSS_CHOICES = [{
+    name: 'Karling',
+    value: 'karling',
+}, {
+    name: 'Kalos',
+    value: 'kalos',
+}, {
     name: 'Chosen Serene',
     value: 'chosen serene',
 }, {

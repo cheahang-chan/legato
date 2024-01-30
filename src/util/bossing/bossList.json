@@ -48,5 +48,15 @@
         "name": "Chosen Serene",
         "image": "https://i.imgur.com/ljs6LWL.png",
         "color": "#FFFAA0"
+    },
+    "kalos": {
+        "name": "Kalos",
+        "image": "https://i.imgur.com/Vq67LDI.png",
+        "color": "#FFFAA0"
+    },
+    "karling": {
+        "name": "Karling",
+        "image": "https://i.imgur.com/Oy1SFMn.png",
+        "color": "#FFFAA0"
     }
 }
